@@ -9,14 +9,14 @@ export default class App extends Component {
     this.state = {
       users: [],
       isLoading: true,
-      sorted: false,
+      sorted: false
     }
   }
 
   async componentDidMount() {
     let users = localStorage.getItem('users')
     try {
-      users = JSON.parse(users);
+      users = JSON.parse(users)
     } catch (err) {
       console.log('Users was not found')
     }
@@ -32,12 +32,38 @@ export default class App extends Component {
     }))
   }
 
+  filterAlphabetically = () => {
+    let { users } = this.state
+    if (Array.isArray(users) && !!users.length) {
+      if (this.state.sorted) {
+        users.reverse()
+      } else {
+        users.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+      }
+      this.setState(state => ({
+        ...state,
+        users,
+        sorted: true,
+      }))
+    }
+  }
+
   render() {
-    const { users } = this.state
+    const { isLoading, users } = this.state
     return (
       <Container>
-        <NavBar />
-        <UserList users={users} />
+        {
+          isLoading
+          ?
+            <p>Loading</p>
+            :
+            <div>
+              <NavBar filterAlphabetically={this.filterAlphabetically} />
+              <UserList users={users} />
+            </div>
+        }
       </Container>
     )
   }

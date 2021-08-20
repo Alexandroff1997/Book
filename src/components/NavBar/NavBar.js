@@ -1,8 +1,7 @@
 import React from 'react'
 import { alpha, makeStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
-import { AppBar, Toolbar, IconButton, Typography,
+import { AppBar, Toolbar, Button, Typography,
   InputBase } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,24 +59,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function NavBar() {
+export function NavBar({ filterAlphabetically }) {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Contact Book
           </Typography>
+          <Button
+            onClick={() => filterAlphabetically()}
+            variant="contained"
+          >
+            Sorted
+          </Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
