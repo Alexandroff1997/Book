@@ -18,11 +18,11 @@ export function User(props) {
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-        <TableCell component="th" scope="row" onClick={() => setOpen(!open)} align='justify'>
+        <TableCell component="th" scope="row" onClick={() => setOpen(open => !open)} align='justify'>
           {row.name}
         </TableCell>
         <TableCell align='right'>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(open => !open)}>
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
