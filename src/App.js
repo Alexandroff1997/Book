@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Container from '@material-ui/core/Container'
 import {NavBar} from "./components/NavBar/NavBar"
+import {UserList} from "./components/UserList/UserList"
 
 export default class App extends Component {
   constructor() {
@@ -32,9 +33,11 @@ export default class App extends Component {
   }
 
   render() {
+    const { users } = this.state
     return (
       <Container>
         <NavBar />
+        <UserList users={users} />
       </Container>
     )
   }
