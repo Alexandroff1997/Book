@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import {NavBar} from "./components/NavBar/NavBar"
 import {UserList} from "./components/UserList/UserList"
@@ -9,8 +9,16 @@ export default class App extends Component {
     this.state = {
       users: [],
       isLoading: true,
-      sorted: false
+      sorted: false,
+      value: ''
     }
+  }
+
+  searchFilter = (e) => {
+    this.setState(state => ({
+      ...state,
+      value: e.target.value
+    }))
   }
 
   async componentDidMount() {
@@ -52,6 +60,11 @@ export default class App extends Component {
 
   render() {
     const { isLoading, users } = this.state
+
+    const filterUsers = users.filter(user => {
+      return user.name.toLowerCase().includes(this.state.value.toLowerCase())
+    })
+
     return (
       <Container>
         {
@@ -60,8 +73,8 @@ export default class App extends Component {
             <p>Loading</p>
             :
             <div>
-              <NavBar filterAlphabetically={this.filterAlphabetically} />
-              <UserList users={users} />
+              <NavBar searchFilter={this.searchFilter} filterAlphabetically={this.filterAlphabetically} />
+              <UserList users={filterUsers} />
             </div>
         }
       </Container>

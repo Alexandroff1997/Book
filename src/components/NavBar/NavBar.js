@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function NavBar({ filterAlphabetically }) {
+export function NavBar({ filterAlphabetically, searchFilter }) {
   const classes = useStyles()
 
   return (
@@ -80,6 +80,7 @@ export function NavBar({ filterAlphabetically }) {
               <SearchIcon />
             </div>
             <InputBase
+              onChange={e => searchFilter(e)}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
