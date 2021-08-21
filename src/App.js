@@ -12,16 +12,17 @@ export default class App extends Component {
       isLoading: true,
       sorted: false,
       value: '',
-      modalActive: false
+      modalActive: false,
+      modalUserData: {}
     }
   }
 
-  setModalActive = () => {
+  setModalActive = (user) => {
     this.setState(state => ({
       ...state,
+      modalUserData: {...user},
       modalActive: !this.state.modalActive
     }))
-    console.log('reopen')
   }
 
   searchFilter = (e) => {
@@ -87,10 +88,12 @@ export default class App extends Component {
               <UserList
                 users={filterUsers}
                 setModalActive={this.setModalActive}
+                modalActive={this.state.modalActive}
               />
               <DataChangeModal
                 modalActive={this.state.modalActive}
                 setModalActive={this.setModalActive}
+                modalUserData={this.state.modalUserData}
               />
             </div>
         }

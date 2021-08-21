@@ -11,7 +11,7 @@ const useRowStyles = makeStyles({
 })
 
 export function User(props) {
-  const { row, setModalActive } = props
+  const { user, setModalActive } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
@@ -19,7 +19,7 @@ export function User(props) {
     <React.Fragment>
       <TableRow className={classes.root}>
         <TableCell component="th" scope="row" onClick={() => setOpen(open => !open)} align='justify'>
-          {row.name}
+          {user.name}
         </TableCell>
         <TableCell align='right'>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(open => !open)}>
@@ -31,14 +31,14 @@ export function User(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <p>Username: {row.username}</p>
-              <p>E-mail: {row.email}</p>
-              <p>Phone: {row.website}</p>
-              <p>Company: {row.company.name}</p>
-              <p>City: {row.address.city}</p>
+              <p>Username: {user.username}</p>
+              <p>E-mail: {user.email}</p>
+              <p>Web: {user.website}</p>
+              <p>Company: {user.company.name}</p>
+              <p>City: {user.address.city}</p>
             </Box>
             <Button
-              onClick={setModalActive}
+              onClick={() => setModalActive(user)}
               style={{marginBottom: "10px"}}
               variant="contained"
               color="primary"

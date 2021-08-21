@@ -4,7 +4,7 @@ import {User} from "../User/User"
 
 export class UserList extends React.Component {
   render() {
-    const { users, setModalActive } = this.props
+    const { users, setModalActive, modalActive } = this.props
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -12,8 +12,9 @@ export class UserList extends React.Component {
             {users.map((user) => (
               <User
                 key={user.name}
-                row={user}
+                user={user}
                 setModalActive={setModalActive}
+                modalActive={modalActive}
               />
             ))}
           </TableBody>
