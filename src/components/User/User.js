@@ -1,6 +1,6 @@
 import React from 'react'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons'
-import { makeStyles, Box, Collapse, IconButton, TableCell, TableRow } from '@material-ui/core'
+import { makeStyles, Box, Collapse, IconButton, TableCell, TableRow, Button } from '@material-ui/core'
 
 const useRowStyles = makeStyles({
   root: {
@@ -11,7 +11,7 @@ const useRowStyles = makeStyles({
 })
 
 export function User(props) {
-  const { row } = props
+  const { row, setModalActive } = props
   const [open, setOpen] = React.useState(false)
   const classes = useRowStyles()
 
@@ -37,6 +37,14 @@ export function User(props) {
               <p>Company: {row.company.name}</p>
               <p>City: {row.address.city}</p>
             </Box>
+            <Button
+              onClick={setModalActive}
+              style={{marginBottom: "10px"}}
+              variant="contained"
+              color="primary"
+            >
+              Change
+            </Button>
           </Collapse>
         </TableCell>
       </TableRow>

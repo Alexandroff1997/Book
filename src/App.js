@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import {NavBar} from "./components/NavBar/NavBar"
 import {UserList} from "./components/UserList/UserList"
+import {DataChangeModal} from "./components/DataChangeModal/DataChangeModal";
 
 export default class App extends Component {
   constructor() {
@@ -10,8 +11,17 @@ export default class App extends Component {
       users: [],
       isLoading: true,
       sorted: false,
-      value: ''
+      value: '',
+      modalActive: false
     }
+  }
+
+  setModalActive = () => {
+    this.setState(state => ({
+      ...state,
+      modalActive: !this.state.modalActive
+    }))
+    console.log('reopen')
   }
 
   searchFilter = (e) => {
@@ -74,7 +84,14 @@ export default class App extends Component {
             :
             <div>
               <NavBar searchFilter={this.searchFilter} filterAlphabetically={this.filterAlphabetically} />
-              <UserList users={filterUsers} />
+              <UserList
+                users={filterUsers}
+                setModalActive={this.setModalActive}
+              />
+              <DataChangeModal
+                modalActive={this.state.modalActive}
+                setModalActive={this.setModalActive}
+              />
             </div>
         }
       </Container>
