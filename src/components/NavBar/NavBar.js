@@ -3,6 +3,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import { AppBar, Toolbar, Button, Typography,
   InputBase } from '@material-ui/core'
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +74,7 @@ export function NavBar({ filterAlphabetically, searchFilter }) {
             onClick={() => filterAlphabetically()}
             variant="contained"
           >
-            Sorted
+            <SortByAlphaIcon />
           </Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
