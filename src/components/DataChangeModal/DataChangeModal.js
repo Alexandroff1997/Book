@@ -1,19 +1,23 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Modal from '@material-ui/core/Modal'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Modal, TextField, Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '100%'
     },
   },
   paper: {
+    display: 'flex',
+    flexDirection: 'column',
     position: 'absolute',
-    width: 400,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 'auto',
+    height: 'auto',
+    maxWidth: 450,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -29,8 +33,6 @@ const modalStyles = {
 
 export const DataChangeModal = ({ modalActive, setModalActive, modalUserData }) => {
   const classes = useStyles()
-
-  console.log(modalUserData.company)
 
   return (
     <div>
@@ -64,23 +66,28 @@ export const DataChangeModal = ({ modalActive, setModalActive, modalUserData }) 
               variant="outlined"
             />
             <TextField
-              defaultValue={modalUserData.company}
-              id="3"
+              defaultValue={modalUserData.company ? modalUserData.company.name : ''}
+              id="4"
               label="Company"
               variant="outlined"
             />
             <TextField
-              defaultValue="London"
-              id="3"
+              defaultValue={modalUserData.address ? modalUserData.address.city : ''}
+              id="5"
               label="City"
               variant="outlined"
             />
-            <Button variant="contained" color="primary">
-              Confirm
-            </Button>
-            <Button variant="contained">
-              Cancel
-            </Button>
+            <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+              <Button
+                variant="contained"
+                color="primary"
+              >
+                Confirm
+              </Button>
+              <Button variant="contained">
+                Cancel
+              </Button>
+            </div>
           </form>
         </div>
       </Modal>
