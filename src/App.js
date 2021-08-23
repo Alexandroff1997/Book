@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import {NavBar} from "./components/NavBar/NavBar"
 import {UserList} from "./components/UserList/UserList"
-import {DataChangeModal} from "./components/DataChangeModal/DataChangeModal";
+import DataChangeModal from "./components/DataChangeModal/DataChangeModal"
 
 export default class App extends Component {
   constructor() {
@@ -17,12 +17,41 @@ export default class App extends Component {
     }
   }
 
-  setModalActive = (user) => {
+  toggleModal = () => {
     this.setState(state => ({
       ...state,
-      modalUserData: {...user},
       modalActive: !this.state.modalActive
     }))
+  }
+
+  setModalActive = (user) => {
+    this.setState((state) => ({
+      ...state,
+      modalUserData: user,
+    }))
+    this.toggleModal()
+  }
+
+  saveUserData = (changedUser) => {
+    let { users } = this.state;
+    users = users.map((user) => {
+      if (user.id === changedUser.id) {
+        return changedUser
+      }
+      return user;
+    });
+
+    this.setState((state) => ({
+      ...state,
+      users,
+      modalActive: false,
+    }));
+
+    this.saveUsersInLocalStorage(users);
+  }
+
+  saveUsersInLocalStorage(users) {
+    return localStorage.setItem('users', JSON.stringify(users));
   }
 
   searchFilter = (e) => {
@@ -70,7 +99,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { isLoading, users } = this.state
+    const { isLoading, users, modalActive } = this.state
 
     const filterUsers = users.filter(user => {
       return user.name.toLowerCase().includes(this.state.value.toLowerCase())
@@ -84,17 +113,23 @@ export default class App extends Component {
             <p>Loading</p>
             :
             <div>
-              <NavBar searchFilter={this.searchFilter} filterAlphabetically={this.filterAlphabetically} />
+              <NavBar
+                searchFilter={this.searchFilter}
+                filterAlphabetically={this.filterAlphabetically}
+              />
               <UserList
                 users={filterUsers}
                 setModalActive={this.setModalActive}
                 modalActive={this.state.modalActive}
               />
-              <DataChangeModal
+              {modalActive ? <DataChangeModal
                 modalActive={this.state.modalActive}
                 setModalActive={this.setModalActive}
                 modalUserData={this.state.modalUserData}
-              />
+                changeUserDataState={this.saveUserData}
+                isLoading={this.state.isLoading}
+                toggleModal={this.toggleModal}
+              /> : null}
             </div>
         }
       </Container>
